@@ -13,5 +13,18 @@ response = s3_client.list_objects_v2(Bucket='demo-bucket-bober') # List objects 
 objects = response.get('Contents', [])
 print(objects)
 
-s3_client.download_file("demo-bucket-bober", "bober.jpg", "downloaded_bober.jpg") 
-s3_client.download_file("demo-bucket-bober", "info.txt", "downloaded_info.txt") 
+# s3_client.download_file("demo-bucket-bober", "bober.jpg", "downloaded_bober.jpg") 
+# s3_client.download_file("demo-bucket-bober", "info.txt", "downloaded_info.txt") 
+
+s3_client.put_bucket_versioning(
+    Bucket='demo-bucket-bober', 
+    VersioningConfiguration={'Status': 'Enabled'}
+) # Enable versioning on a bucket
+
+response = s3_client.list_object_versions(
+    Bucket='demo-bucket-bober',
+    Prefix='info.txt'
+) # List object versions in a bucket
+
+for version in response.get('Versions'):
+    print(version)
