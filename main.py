@@ -14,3 +14,4 @@ objects = response.get('Contents', [])
 print(objects)
 
 s3_client.download_file("demo-bucket-bober", "bober.jpg", "downloaded_bober.jpg") 
+s3_client.download_file("demo-bucket-bober", "info.txt", "downloaded_info.txt") 
