@@ -39,6 +39,7 @@ def backup_postgres():
     print("database backup started")
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"backup_{timestamp}.sql"
+    filepath = os.path.join("backups", filename)
 
     password = os.environ.get("DB_PASSWORD")
     
@@ -51,10 +52,10 @@ def backup_postgres():
         "mydb"
     ]
 
-    with open(filename, "w") as f:
+    with open(filepath, "w") as f:
         subprocess.run(command, stdout=f)
 
-    print(f"Backup saved to {filename}")
+    print(f"Backup saved to {filepath}")
 
     s3_client.upload_file(
         filename,   # local file
