@@ -1,7 +1,9 @@
 import os
 import boto3
 import threading
-
+import subprocess
+import datetime
+import time
 
 s3_client = boto3.client('s3') # S3 client
 s3_resource = boto3.resource('s3') # S3 resource
@@ -31,10 +33,10 @@ s3_client.put_bucket_versioning(
 # for version in response.get('Versions'):
 #     print(version)
 
-import subprocess
-import datetime
+
 
 def backup_postgres():
+    print("database backup started")
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"backup_{timestamp}.sql"
 
@@ -64,4 +66,6 @@ def backup_postgres():
 
 
 
-backup_postgres()
+while True:
+    backup_postgres()
+    time.sleep(60)
