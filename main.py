@@ -44,7 +44,7 @@ def backup_postgres():
         "-e", f"PGPASSWORD={password}",
         "postgres_db",
         "pg_dump",
-        "-U", "postgres",
+        "-U", "ivan",
         "mydb"
     ]
 
