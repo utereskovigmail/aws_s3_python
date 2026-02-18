@@ -58,7 +58,7 @@ def backup_postgres():
     print(f"Backup saved to {filepath}")
 
     s3_client.upload_file(
-        filename,   # local file
+        filepath,   # local file
         bucket_name,           # bucket name
         f"backups/{filename}"  # key (path inside bucket)
     )
